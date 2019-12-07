@@ -136,3 +136,14 @@ nikto -h vg-suricata-01 -C all
 
 
 ~~~
+roles
+~~~
+suricata
+test_suricata
+~~~
+upgrade
+~~~
+suricata_version: 5.0.0
+provisioning\roles\suricata\vars\main.yml
+<https://redmine.openinfosecfoundation.org/projects/suricata/wiki/Suricata_Installation>
+~~~
