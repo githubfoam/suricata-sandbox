@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               vb.memory = server["vbox_ram"]
               vb.cpus = server["vbox_cpu"]
               vb.gui = false
-              vb.customize ["modifyvm", :id, "--groups", "/zeek-sandbox"] # create vbox group
+              vb.customize ["modifyvm", :id, "--groups", "/suricata-sandbox"] # create vbox group
           end # end of box.vm.providers
 
           box.vm.provision "ansible_local" do |ansible|

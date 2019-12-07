@@ -1,23 +1,36 @@
 ---
-- debug:
-    msg: "{{ hostvars[inventory_hostname].ansible_os_family }}"
-- debug:
-    msg: "{{ hostvars[inventory_hostname].ansible_distribution }}"
-- debug:
-    msg: "{{ hostvars[inventory_hostname].ansible_distribution_major_version }}"
-- debug:
-    msg: "{{ hostvars[inventory_hostname].ansible_distribution_release }}"
-- debug:
-    msg: "{{ hostvars[inventory_hostname].ansible_distribution_version }}"
+- name: "ansible_os_family"
+  debug:
+   msg: "{{ hostvars[inventory_hostname].ansible_os_family }}"
+
+- name: "ansible_distribution"
+  debug:
+   msg: "{{ hostvars[inventory_hostname].ansible_distribution }}"
+
+- name: "ansible_distribution_major_version"
+  debug:
+   msg: "{{ hostvars[inventory_hostname].ansible_distribution_major_version }}"
+
+- name: "ansible_distribution_release"
+  debug:
+   msg: "{{ hostvars[inventory_hostname].ansible_distribution_release }}"
+
+- name: "ansible_distribution_version"
+  debug:
+   msg: "{{ hostvars[inventory_hostname].ansible_distribution_version }}"
+
+- name: "Add Ubuntu suricata"
+  include_tasks: suricata_debian.yml
+  when: " ansible_os_family == 'Debian' and ansible_distribution in ['Ubuntu'] and ansible_distribution_version in ['16.04'] "
 
 - name: "Add Debian suricata"
   include_tasks: suricata_debian.yml
-  when: " ansible_os_family == 'Debian' and ansible_distribution in ['Debian','Ubuntu'] "
-  # when: " ansible_os_family == 'Debian' and ansible_distribution in ['Ubuntu'] and ansible_distribution_version in ['16.04'] "
+  when: " ansible_os_family == 'Debian' and ansible_distribution == 'Debian'  and ansible_distribution_version == '10.1'  "
+
 - name: "Add RedHat suricata"
   include_tasks: suricata_redhat.yml
-  # when: " ansible_os_family == 'RedHat' and ansible_distribution in ['CentOS','Scientific'] "
-  when: " ansible_os_family == 'RedHat' and ansible_distribution in ['CentOS'] and ansible_distribution_version in ['8.0'] "
+  when: " ansible_os_family == 'RedHat' and ansible_distribution in ['CentOS'] and ansible_distribution_version in ['7.7'] "
+
 - name: "Add Fedora suricata"
   include_tasks: suricata_fedora.yml
   when: " ansible_os_family == 'RedHat' and ansible_distribution in ['Fedora'] "

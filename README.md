@@ -1,4 +1,44 @@
 # suricata-sandbox
+ubuntu-19.04 / Debian GNU/Linux 10 (buster)
+~~~
+cd /tmp/suricata-5.0.0/
+sudo make install-full
+
+error: rules not installed as suricata-update not available
+make[1]: *** [Makefile:937: install-rules] Error 1
+make[1]: Leaving directory '/tmp/suricata-5.0.0'
+make: *** [Makefile:918: install-full] Error 2
+
+~~~
+centos-7.7
+~~~
+[vagrant@vg-suricata-04 ~]$ sudo LD_LIBRARY_PATH=/usr/lib /usr/bin/suricata-update
+[vagrant@vg-suricata-04 ~]$ sudo LD_LIBRARY_PATH=/usr/lib /usr/bin/suricata-update update-sources
+7/12/2019 -- 12:23:13 - <Info> -- Using data-directory /var/lib/suricata.
+7/12/2019 -- 12:23:13 - <Info> -- Using Suricata configuration /etc/suricata/suricata.yaml
+7/12/2019 -- 12:23:13 - <Info> -- Using /usr/share/suricata/rules for Suricata provided rules.
+7/12/2019 -- 12:23:13 - <Info> -- Found Suricata version 5.0.0 at /usr/bin/suricata.
+7/12/2019 -- 12:23:13 - <Info> -- Downloading https://www.openinfosecfoundation.org/rules/index.yaml
+7/12/2019 -- 12:23:15 - <Info> -- Saved /var/lib/suricata/update/cache/index.yaml
+[vagrant@vg-suricata-04 ~]$ sudo ethtool -K eth1 tso off
+[vagrant@vg-suricata-04 ~]$ sudo ethtool -K eth1 tx off
+[vagrant@vg-suricata-04 ~]$ sudo ethtool -K eth1 gro off
+
+[vagrant@vg-suricata-04 ~]$ sudo LD_LIBRARY_PATH=/usr/lib /usr/bin/suricata -D -c /etc/suricata/suricata.yaml -i eth1
+7/12/2019 -- 12:24:20 - <Notice> - This is Suricata version 5.0.0 RELEASE running in SYSTEM mode
+[vagrant@vg-suricata-04 ~]$
+
+# smoketesting
+vagrant@vg-suricata-03:~$ sudo hping3 -S -p 80 --flood --rand-source vg-suricata-04
+
+
+# monitoring
+vagrant@vg-suricata-01:~$ sudo tail -f /var/log/suricata/fast.log
+vagrant@vg-suricata-01:/var/log/suricata$ cd /var/log/suricata && tail -f http.log stats.log
+
+
+~~~
+ubuntu-16.04
 ~~~
 vagrant@vg-suricata-01:~$ sudo suricata-update
 vagrant@vg-suricata-01:~$ sudo suricata-update update-sources
