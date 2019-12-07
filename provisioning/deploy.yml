@@ -1,0 +1,37 @@
+---
+- name: "Boot all hosts"
+  gather_facts: true
+  hosts:  all
+  become: yes
+  vars:
+    add_host_entries: true
+    add_resolv_entries: true
+  pre_tasks:
+  - name: "Setting hostname"
+    shell: "hostnamectl set-hostname {{ inventory_hostname }}"
+  roles:
+    - common
+- name: "Install suricata"
+  gather_facts: true
+  hosts:  vg-suricata-01
+  become: yes
+  roles:
+    - suricata
+- name: "Install suricata"
+  gather_facts: true
+  hosts:  vg-suricata-02
+  become: yes
+  roles:
+    - suricata
+- name: "Install suricata"
+  gather_facts: true
+  hosts:  vg-suricata-04
+  become: yes
+  roles:
+    - suricata
+- name: "Install suricata test client"
+  gather_facts: true
+  hosts:  vg-suricata-03
+  become: yes
+  roles:
+    - test_suricata

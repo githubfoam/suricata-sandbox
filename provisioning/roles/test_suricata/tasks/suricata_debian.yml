@@ -1,0 +1,14 @@
+---
+# [WARNING]: Could not find aptitude. Using apt-get instead fix
+- name: "APT: Install aptitude package"
+  apt:
+   name: aptitude
+   force_apt_get: yes
+- name: "Test Suricata install hping, nmap and nikto tool"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - hping3
+      - nmap
+      - nikto

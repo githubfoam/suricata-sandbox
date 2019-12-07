@@ -1,0 +1,32 @@
+---
+- name: "Before you can build Suricata for your system, ensure that you have everything you need for the installation"
+  package:
+    name: "{{ suricata_centos_default_pre_reqs }}"
+    state: present
+
+- name: "Extract the latest version of Suricata into /tmp"
+  unarchive:
+    src: https://www.openinfosecfoundation.org/download/suricata-{{ suricata_version }}.tar.gz
+    dest: /tmp
+    creates: /tmp/suricata-{{ suricata_version }}/LICENSE
+    remote_src: yes
+- name: "Make sure /tmp/suricata-xxx exists"
+  stat:
+    path: /tmp/suricata-{{ suricata_version }}
+  register: suricata_result
+
+- name: "Configure suricata with IPS capabilities"
+  shell: ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-nfqueue --enable-lua chdir=/tmp/suricata-{{ suricata_version }} >> /tmp/surricata_configure.out
+  args:
+    chdir: /tmp
+    creates: surricata_configure.out
+- name: "Make suricata"
+  shell: make chdir=/tmp/suricata-{{ suricata_version }} >> /tmp/surricata_make.out
+  args:
+    chdir: /tmp
+    creates: surricata_make.out
+- name: "Make install-full suricata"
+  shell: make install-full chdir=/tmp/suricata-{{ suricata_version }} >> /tmp/surricata_makeinstallfull.out
+  args:
+    chdir: /tmp
+    creates: surricata_makeinstallfull.out

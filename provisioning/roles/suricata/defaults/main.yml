@@ -1,0 +1,54 @@
+---
+# defaults file for common
+suricata_centos_default_pre_reqs:
+  - epel-release
+  - gcc
+  - libpcap-devel
+  - pcre-devel
+  - libyaml-devel
+  - file-devel
+  - zlib-devel
+  - jansson-devel
+  - nss-devel
+  - libcap-ng-devel
+  - libnet-devel
+  - tar
+  - make
+  - libnetfilter_queue-devel
+  - lua-devel
+  - PyYAML
+  - libmaxminddb-devel
+  - rustc
+  - cargo
+  - lz4-devel
+suricata_default_pre_reqs:
+  - libpcre3
+  - libpcre3-dbg
+  - libpcre3-dev
+  - build-essential
+  - autoconf
+  - automake
+  - libtool
+  - libpcap-dev
+  - libnet1-dev
+  - libyaml-0-2
+  - libyaml-dev
+  - zlib1g
+  - zlib1g-dev
+  - libcap-ng-dev
+  - libcap-ng0
+  # 5.0.0 reqs
+  - libjansson-dev
+  - libnspr4-dev
+  - libnss3-dev
+  - libmagic-dev
+  - liblz4-dev
+  - rustc
+  - cargo
+  - python-yaml # Install the yaml module for Python 3 to enable suricata-update.# WARNING OPTIONAL
+  - python3-yaml
+suricata_ips_ids_reqs:
+  - libnetfilter-queue-dev
+  - libnetfilter-queue1
+  - libnfnetlink-dev
+  - libnfnetlink0
